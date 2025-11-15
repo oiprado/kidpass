@@ -1,0 +1,30 @@
+<div class="dashboard-layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>Kidpass</h2>
+    </div>
+    <nav class="sidebar-nav">
+      <ul>
+        <li><a routerLink="/dashboard/profile" routerLinkActive="active">Profile</a></li>
+        <li><a routerLink="/dashboard/activities" routerLinkActive="active">Activities</a></li>
+        <li><a routerLink="/dashboard/bookings" routerLinkActive="active">Bookings</a></li>
+        <li><a routerLink="/dashboard/notifications" routerLinkActive="active">Notifications</a></li>
+        <li><a routerLink="/dashboard/students" routerLinkActive="active">Students</a></li>
+        <li><a routerLink="/dashboard/authorizations" routerLinkActive="active">Authorizations</a></li>
+        <li><a routerLink="/dashboard/qrcode" routerLinkActive="active">QR Code</a></li>
+        <li><a routerLink="/dashboard/reports" routerLinkActive="active">Reports</a></li>
+      </ul>
+    </nav>
+  </aside>
+  <main class="main-content">
+    <header class="main-header">
+      <div class="user-info">
+        <span>Welcome, John Doe!</span>
+      </div>
+      <button (click)="logout()">Logout</button>
+    </header>
+    <div class="content-area">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

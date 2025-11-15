@@ -1,0 +1,27 @@
+<h2>QR Code Scanner</h2>
+
+<div *ngIf="errorMessage" class="error-message">
+  <p>{{ errorMessage }}</p>
+</div>
+
+<div *ngIf="!scannerEnabled">
+  <button (click)="startScanner()">Start Scanner</button>
+</div>
+
+<div *ngIf="scannerEnabled">
+  <zxing-scanner #scanner
+                 [autostart]="true"
+                 (scanSuccess)="onCodeResult($event)"
+                 (camerasFound)="onCamerasFound($event)"
+                 [device]="selectedDevice"
+                 [formats]="[BarcodeFormat.QR_CODE]">
+  </zxing-scanner>
+</div>
+
+<div *ngIf="qrResult">
+  <h3>Scan Result:</h3>
+  <p>{{ qrResult }}</p>
+  <div *ngIf="validationStatus">
+    <p>Validation Status: <strong>{{ validationStatus }}</strong></p>
+  </div>
+</div>

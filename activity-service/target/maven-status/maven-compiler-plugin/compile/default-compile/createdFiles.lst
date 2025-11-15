@@ -1,6 +1,0 @@
-com/kidpass/activityservice/service/ActivityService.class
-com/kidpass/activityservice/repository/ActivityRepository.class
-com/kidpass/activityservice/ActivityServiceApplication.class
-com/kidpass/activityservice/entity/Schedule.class
-com/kidpass/activityservice/entity/Activity.class
-com/kidpass/activityservice/controller/ActivityController.class

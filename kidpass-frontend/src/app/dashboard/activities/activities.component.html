@@ -1,0 +1,15 @@
+<div class="activities-container">
+  <h2>Available Activities</h2>
+  <div *ngIf="activities.length > 0; else noActivities">
+    <div *ngFor="let activity of activities" class="activity-card">
+      <h3>{{ activity.name }}</h3>
+      <p><strong>Description:</strong> {{ activity.description }}</p>
+      <p><strong>Date:</strong> {{ activity.date }}</p>
+      <p><strong>Time:</strong> {{ activity.time }}</p>
+      <p><strong>Location:</strong> {{ activity.location }}</p>
+    </div>
+  </div>
+  <ng-template #noActivities>
+    <p>No activities available at the moment.</p>
+  </ng-template>
+</div>

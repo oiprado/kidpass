@@ -1,0 +1,16 @@
+<h2>QR Code Generation</h2>
+
+<div class="form-group">
+  <label for="authorizationId">Authorization ID:</label>
+  <input type="text" id="authorizationId" [(ngModel)]="authorizationId" name="authorizationId" required>
+  <button (click)="generateQrCode()">Generate QR Code</button>
+</div>
+
+<div *ngIf="qrCode" class="qr-code-container">
+  <h3>Generated QR Code:</h3>
+  <img [src]="qrCode.qrCodeImage" alt="QR Code">
+</div>
+
+<div *ngIf="errorMessage" class="error-message">
+  <p>{{ errorMessage }}</p>
+</div>

@@ -1,0 +1,14 @@
+<div class="bookings-container">
+  <h2>My Bookings</h2>
+  <div *ngIf="bookings.length > 0; else noBookings">
+    <div *ngFor="let booking of bookings" class="booking-card">
+      <h3>{{ booking.activityName }}</h3>
+      <p><strong>Booking Date:</strong> {{ booking.bookingDate }}</p>
+      <p><strong>Status:</strong> {{ booking.status }}</p>
+      <p><strong>Number of Students:</strong> {{ booking.numberOfStudents }}</p>
+    </div>
+  </div>
+  <ng-template #noBookings>
+    <p>No bookings found.</p>
+  </ng-template>
+</div>

@@ -1,0 +1,13 @@
+<h2>Notifications</h2>
+
+<div *ngIf="notifications.length > 0; else noNotifications">
+  <ul class="notification-list">
+    <li *ngFor="let notification of notifications" [class.unread]="notification.status === 'UNREAD'">
+      <p>{{ notification.message }}</p>
+      <span class="date">{{ notification.createdAt | date:'medium' }}</span>
+    </li>
+  </ul>
+</div>
+<ng-template #noNotifications>
+  <p>No notifications found.</p>
+</ng-template>

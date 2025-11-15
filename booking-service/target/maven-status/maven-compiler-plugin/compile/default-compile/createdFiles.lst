@@ -1,5 +1,0 @@
-com/kidpass/bookingservice/service/BookingService.class
-com/kidpass/bookingservice/entity/Booking.class
-com/kidpass/bookingservice/BookingServiceApplication.class
-com/kidpass/bookingservice/repository/BookingRepository.class
-com/kidpass/bookingservice/controller/BookingController.class
