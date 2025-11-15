@@ -1,0 +1,5 @@
+com/kidpass/authorizationservice/entity/Authorization.class
+com/kidpass/authorizationservice/AuthorizationServiceApplication.class
+com/kidpass/authorizationservice/controller/AuthorizationController.class
+com/kidpass/authorizationservice/repository/AuthorizationRepository.class
+com/kidpass/authorizationservice/service/AuthorizationService.class

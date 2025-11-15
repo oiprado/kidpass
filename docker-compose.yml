@@ -1,0 +1,135 @@
+version: '3.8'
+
+services:
+  build-all:
+    build:
+      context: .
+      dockerfile: build-all/Dockerfile
+    image: kidpass-build
+    container_name: build-all
+
+  eureka-server:
+    build:
+      context: ./eureka-server
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+    networks:
+      - kidpass-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8761"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    depends_on:
+      - build-all
+      - mongodb
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      build-all:
+        condition: service_started
+      eureka-server:
+        condition: service_started
+      mongodb:
+        condition: service_started
+      config-server:
+        condition: service_healthy
+    environment:
+      SPRING_CONFIG_IMPORT: "configserver:http://config-server:8888"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      SPRING_PROFILES_ACTIVE: docker
+    networks:
+      - kidpass-network
+
+  auth-service:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    depends_on:
+      build-all:
+        condition: service_started
+      eureka-server:
+        condition: service_started
+      mongodb:
+        condition: service_started
+      config-server:
+        condition: service_healthy
+    environment:
+      SPRING_CONFIG_IMPORT: "configserver:http://config-server:8888"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      SPRING_DATA_MONGODB_HOST: mongodb
+      SPRING_PROFILES_ACTIVE: docker
+    networks:
+      - kidpass-network
+
+  user-service:
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    depends_on:
+      build-all:
+        condition: service_started
+      eureka-server:
+        condition: service_started
+      config-server:
+        condition: service_healthy
+    environment:
+      SPRING_CONFIG_IMPORT: "configserver:http://config-server:8888"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      SPRING_PROFILES_ACTIVE: docker
+      SERVER_PORT: 8082
+    networks:
+      - kidpass-network
+
+  mongodb:
+    image: mongo:5.0
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: kidpass
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - kidpass-network
+
+  config-server:
+    build:
+      context: ./config-server
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./config-repo:/config-repo
+    depends_on:
+      - build-all
+      - eureka-server
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8888/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - kidpass-network
+
+volumes:
+  mongodb_data:
+
+networks:
+  kidpass-network:
+    external: true
