@@ -1,14 +1,5 @@
-# Build stage
-FROM maven:3.8.4-openjdk-17 AS build
+FROM amazoncorretto:17
 WORKDIR /app
-COPY pom.xml .
-COPY ../pom.xml ./
-COPY src ./src
-RUN mvn clean install
-
-# Package stage
-FROM openjdk:17-jdk-slim
-VOLUME /tmp
+COPY user-service/target/*.jar app.jar
 EXPOSE 8087
-COPY --from=build /app/target/*.jar app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
