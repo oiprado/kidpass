@@ -6,15 +6,6 @@ spring:
     import: "optional:configserver:"
   application:
     name: user-service
-  data:
-    mongodb:
-      host: localhost
-      port: 27018
-      database: kidpass
-      username: admin
-      password: admin
-      authentication-database: kidpass
-
 eureka:
   client:
     healthcheck:
