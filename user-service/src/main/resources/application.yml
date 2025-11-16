@@ -8,7 +8,7 @@ spring:
     name: user-service
   data:
     mongodb:
-      host: kidpass-mongodb
+      host: localhost
       port: 27018
       database: kidpass
       username: admin
