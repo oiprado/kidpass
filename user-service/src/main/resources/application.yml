@@ -8,12 +8,12 @@ spring:
     name: user-service
   data:
     mongodb:
-      host: mongodb
-      port: 27017
+      host: kidpass-mongodb
+      port: 27018
       database: kidpass
       username: admin
       password: admin
-      authentication-database: admin
+      authentication-database: kidpass
 
 eureka:
   client:
