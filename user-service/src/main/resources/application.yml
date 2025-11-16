@@ -3,17 +3,12 @@ server:
 
 spring:
   config:
-    import: "optional:configserver:"
+    import: "optional:configserver:http://config-server:8888"
   application:
     name: user-service
   data:
     mongodb:
-      uri: mongodb://kidpass-mongodb:27018/users
-      host: kidpass-mongodb
-      port: 27018
-      database: kidpass
-      username: admin
-      password: admin
+      uri: mongodb://admin:admin@kidpass-mongodb:27018/kidpass?authSource=admin
 eureka:
   client:
     healthcheck:
