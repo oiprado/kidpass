@@ -1,7 +1,6 @@
-FROM eclipse-temurin:17-jdk-jammy
-VOLUME /tmp
-EXPOSE 8082
-COPY --from=kidpass-build /app/user-service/target/*.jar app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
-
+FROM openjdk:11-jre-slim
+WORKDIR /app
+COPY user-service/target/*.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]
 
