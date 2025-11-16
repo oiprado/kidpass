@@ -8,7 +8,12 @@ spring:
     name: user-service
   data:
     mongodb:
-      uri: mongodb://admin:admin@kidpass-mongodb:27018/kidpass?authSource=admin
+      uri: mongodb://admin:admin@kidpass-mongodb:27017/kidpass?authSource=admin
+      host: kidpass-mongodb
+      port: 27017
+      database: kidpass
+      username: admin
+      password: admin
 eureka:
   client:
     healthcheck:
