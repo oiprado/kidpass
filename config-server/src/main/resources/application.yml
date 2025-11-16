@@ -16,7 +16,7 @@ spring:
     config:
       server:
         git:
-          uri: file:///config-repo
+          uri: https://github.com/oiprado/kidpass-config.git
           default-label: main
 
 eureka:
